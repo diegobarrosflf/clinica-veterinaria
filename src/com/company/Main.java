@@ -4,7 +4,7 @@ import com.company.domain.Cliente;
 import com.company.repositories.ClienteRepository;
 
 import java.util.InputMismatchException;
-import java.util.Objects;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -18,8 +18,8 @@ public class Main {
 
         while (controle) {
 
-                opcoesMenu();
-                coletarOpcaoMenu();
+            opcoesMenu();
+            coletarOpcaoMenu();
 
             switch (menu) {
                 case 0:
@@ -138,13 +138,11 @@ public class Main {
         System.out.println("Digite o nome do cliente.");
         String nome = teclado.nextLine();
 
-        Cliente[] clientes = clienteRepository.findByName(nome);
+        List<Cliente> clientes = clienteRepository.findByName(nome);
 
-        if (Objects.nonNull(clientes)) {
-            for(Cliente cliente : clientes) {
-                if (cliente != null) {
-                    System.out.println(cliente);
-                }
+        if (!clientes.isEmpty()) {
+            for (Cliente cliente : clientes) {
+                System.out.println(cliente);
             }
         }
 

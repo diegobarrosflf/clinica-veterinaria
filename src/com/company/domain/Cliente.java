@@ -1,5 +1,7 @@
 package com.company.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Cliente {
@@ -8,7 +10,7 @@ public class Cliente {
     private String documento;
     private String telefone;
     private String email;
-    private Animal[] pets = new Animal[10];
+    private List<Animal> pets = new ArrayList<>();
 
     public Cliente(String nome, String endereco, String documento, String telefone, String email) {
         this.nome = nome;
@@ -59,15 +61,7 @@ public class Cliente {
     }
 
     public boolean addPet(Animal novoPet) {
-        for(int i = 0; i< pets.length; i++) {
-           if (pets[i] == null) {
-               pets[i] = novoPet;
-               System.out.println("pet adicionado com sucesso.");
-               return true;
-           }
-        }
-        System.out.println("pet não adicionado, espaço insuficinete...");
-        return false;
+        return pets.add(novoPet);
     }
 
     @Override

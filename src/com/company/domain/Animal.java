@@ -1,12 +1,15 @@
 package com.company.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Animal {
     private String nome;
     private String idade;
     private String sexo;
     private Especie especie;
     private Cliente dono;
-    private Consulta[] historico = new Consulta[100];
+    private List<Consulta> historico = new ArrayList<>();
 
     public Animal(String nome, String idade, String sexo, Especie especie, Cliente dono) {
         this.nome = nome;
@@ -17,14 +20,6 @@ public class Animal {
     }
 
     public boolean addConsultaAoHistorico(Consulta consulta) {
-        for(int i = 0; i< historico.length; i++) {
-            if (historico[i] == null) {
-                historico[i] = consulta;
-                System.out.println("consulta adicionada com sucesso.");
-                return true;
-            }
-        }
-        System.out.println("consulta não adicionada, espaço insuficinete...");
-        return false;
+        return historico.add(consulta);
     }
 }

@@ -2,6 +2,8 @@ package com.company.repositories;
 
 import com.company.domain.Cliente;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -12,7 +14,7 @@ import java.util.Objects;
 
 public class ClienteRepository {
 
-    private Cliente[] clienteDB = new Cliente[100];
+    private List<Cliente> clienteDB = new ArrayList<>();
 
     public ClienteRepository() {
         populaBase();
@@ -25,43 +27,40 @@ public class ClienteRepository {
      * @return boolean
      */
     public boolean addCliente(Cliente novoCliente) {
-        for (int i = 0; i < clienteDB.length; i++) {
-            if (clienteDB[i] == null) {
-                clienteDB[i] = novoCliente;
-                System.out.println("cliente adicionado com sucesso.");
-                return true;
-            }
+
+        boolean result = clienteDB.add(novoCliente);
+        if (result) {
+            System.out.println("cliente adicionado com sucesso.");
+            return result;
+        } else {
+            System.out.println("erro ao adicionar um cliente.");
+            return result;
         }
-        System.out.println("cliente não adicionado, espaço insuficiente.");
-        return false;
     }
 
     //Research
-    public Cliente[] findByName(String nomePesquisado) {
-        nomePesquisado = nomePesquisado.toLowerCase();
-        Cliente[] listaDeClientes = new Cliente[10];
-        int aux = 0;
+    public List<Cliente> findByName(String nome) {
+        nome = nome.toLowerCase();
+        List<Cliente> resultado = new ArrayList<>();
+
         for (Cliente cliente : clienteDB) {
-            if (cliente != null) {
-                String nomeCliente = cliente.getNome().toLowerCase();
-                if (nomeCliente.contains(nomePesquisado)) {
-                    listaDeClientes[aux] = cliente;
-                    aux++;
-                }
+            String nomeCliente = cliente.getNome().toLowerCase();
+            if (nomeCliente.contains(nome)) {
+                resultado.add(cliente);
             }
         }
-        if (listaDeClientes[0] != null) {
-            System.out.println("cliente encontrado");
-            return listaDeClientes;
-        } else {
+        if (resultado.isEmpty()) {
             System.out.println("cliente não encontrado");
-            return null;
+            return new ArrayList<>();
+        } else {
+            System.out.println("cliente encontrado");
+            return resultado;
         }
     }
 
     public Cliente findByDocumento(String documento) {
         for (Cliente cliente : clienteDB) {
-            if (cliente != null && documento.equals(cliente.getDocumento())) {
+            if (documento.equalsIgnoreCase(cliente.getDocumento())) {
                 System.out.println("cliente encontrado");
                 return cliente;
             }
@@ -91,13 +90,13 @@ public class ClienteRepository {
         if (isValidString(novoEndereco)) {
             clienteCorrente.setEndereco(novoEndereco);
         }
-        if (novoDocumento != null && !novoDocumento.isBlank()) {
+        if (isValidString(novoDocumento)) {
             clienteCorrente.setDocumento(novoDocumento);
         }
-        if (novoTelefone != null && !novoTelefone.isBlank()) {
+        if (isValidString(novoTelefone)) {
             clienteCorrente.setTelefone(novoTelefone);
         }
-        if (novoEmail != null && !novoEmail.isBlank()) {
+        if (isValidString(novoEmail)) {
             clienteCorrente.setEmail(novoEmail);
         }
         System.out.println("Cliente atualizado com sucesso.");
@@ -106,15 +105,8 @@ public class ClienteRepository {
 
     //Delete
     public boolean deleteByDocumento(String documento) {
-        for (int i = 0; i < clienteDB.length; i++) {
-            if ((clienteDB[i] != null) && clienteDB[i].getDocumento().equals(documento)) {
-                clienteDB[i] = null;
-                System.out.println("Cliente deletado com sucesso.");
-                return true;
-            }
-        }
-        System.out.println("Cliente não encontrado.");
-        return false;
+        Cliente cliente = findByDocumento(documento);
+        return clienteDB.remove(cliente);
     }
 
     private void populaBase() {
@@ -122,9 +114,9 @@ public class ClienteRepository {
         Cliente cliente2 = new Cliente("João de Araújo", "Rua B, 122", "98876", "(85) 97733-4365", "ojuara@gmail.com");
         Cliente cliente3 = new Cliente("Maria Helena de Silva", "Rua C, 54", "92846", "(85) 94376-7676", "maria@gmail.com");
 
-        clienteDB[0] = cliente1;
-        clienteDB[1] = cliente2;
-        clienteDB[2] = cliente3;
+        clienteDB.add(cliente1);
+        clienteDB.add(cliente2);
+        clienteDB.add(cliente3);
     }
 
     private boolean isValidString(String value) {

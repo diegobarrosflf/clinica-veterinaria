@@ -1,9 +1,12 @@
 package com.company.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Veterinario {
     private String nome;
     private String CRMV;
-    private Consulta[] consultas = new Consulta[100];
+    private List<Consulta> consultas = new ArrayList<>();
     
     public Veterinario(String nome, String CRMV) {
         this.nome = nome;
@@ -11,14 +14,6 @@ public class Veterinario {
     }
 
     public boolean addConsulta(Consulta consulta) {
-        for(int i = 0; i< consultas.length; i++) {
-            if (consultas[i] == null) {
-                consultas[i] = consulta;
-                System.out.println("consulta adicionada com sucesso.");
-                return true;
-            }
-        }
-        System.out.println("consulta não adicionada, espaço insuficinete...");
-        return false;
+        return consultas.add(consulta);
     }
 }
