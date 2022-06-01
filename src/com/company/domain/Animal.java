@@ -3,7 +3,7 @@ package com.company.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal {
+public class Animal extends EntidadeBase {
     private String nome;
     private String idade;
     private String sexo;
@@ -21,5 +21,14 @@ public class Animal {
 
     public boolean addConsultaAoHistorico(Consulta consulta) {
         return historico.add(consulta);
+    }
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "nome='" + nome + '\'' +
+                ", idade='" + idade + '\'' +
+                ", sexo='" + sexo + '\'' +
+                '}';
     }
 }

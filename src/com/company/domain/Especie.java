@@ -3,13 +3,13 @@ package com.company.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Especie {
+public class Especie extends EntidadeBase {
 
     private String nome;
     private List<Animal> animais = new ArrayList<>();
 
     public Especie(String nome) {
-        this.nome = nome;
+                this.nome = nome;
     }
 
     public boolean addAnimal(Animal animal) {

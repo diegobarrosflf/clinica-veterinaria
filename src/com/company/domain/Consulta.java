@@ -1,6 +1,6 @@
 package com.company.domain;
 
-public class Consulta {
+public class Consulta extends EntidadeBase {
     private String data;
     private String endereco;
     private String procedimento;

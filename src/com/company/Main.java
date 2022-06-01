@@ -1,3 +1,4 @@
+/*
 package com.company;
 
 import com.company.domain.Cliente;
@@ -126,7 +127,7 @@ public class Main {
         String email = teclado.nextLine();
 
         Cliente novoCliente = new Cliente(nome, endereco, documento, telefone, email);
-        clienteRepository.addCliente(novoCliente);
+        clienteRepository.save(novoCliente);
 
         System.out.println("Aperte enter para retorna.");
         teclado.nextLine();
@@ -156,3 +157,4 @@ public class Main {
         Main.controle = false;
     }
 }
+*/

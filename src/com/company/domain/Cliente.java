@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Cliente {
+public class Cliente extends EntidadeBase {
     private String nome;
     private String endereco;
     private String documento;
     private String telefone;
     private String email;
     private List<Animal> pets = new ArrayList<>();
+
+    public Cliente() {
+    }
 
     public Cliente(String nome, String endereco, String documento, String telefone, String email) {
         this.nome = nome;
